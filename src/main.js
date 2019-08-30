@@ -1,5 +1,9 @@
 /*Vue*/
 import Vue from 'vue'
+/*VueRouter*/
+import VueRouter from 'vue-router'
+Vue.use(VueRouter);
+import router from './router.js'
 /*Mint UI*/
 import MintUI from 'mint-ui'
 Vue.use(MintUI);
@@ -12,4 +16,5 @@ import app from './App.vue'
 new Vue({
     el: "#app",
     render: c => c(app),
+    router
 });

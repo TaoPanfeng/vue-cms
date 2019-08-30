@@ -3,6 +3,7 @@
         <!--顶部-->
         <mt-header fixed title="固定在顶部"></mt-header>
         <!--中间 路由 router-view-->
+        <router-view></router-view>
 
         <!--底部-->
         <nav class="mui-bar mui-bar-tab">
@@ -25,8 +26,6 @@
                 <span class="mui-tab-label">搜索</span>
             </router-link>
         </nav>
-
-        <h1 id="aaa">我是主文件_App.vue</h1>
     </div>
 </template>
 

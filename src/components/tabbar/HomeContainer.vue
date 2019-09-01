@@ -56,16 +56,13 @@
         methods: {
             get_lunbotu_data()// 获取轮播图数据的方法
             {
-                this.$http.get("http://www.liulongbin.top:3005/api/getlunbo").then(result =>
+                this.$http.get("/api/getlunbo").then(result =>
                 {
                     // console.log(result);//打印请求结果
-                    if (result.data.status === 0)// 成功了
-                    {
-                        this.lunbotu_list = result.data.message;
-                    } else// 失败了
-                    {
-                        Toast("加载轮播图失败...");
-                    }
+                    this.lunbotu_list = result.data.message;
+                }).catch(() =>
+                {
+                    Toast("加载轮播图失败...");
                 });
             }
         }

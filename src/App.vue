@@ -38,6 +38,7 @@
     .app_container
     {
         padding-top: 40px; /*让固定在顶部与<h1>标签内容不重合*/
+        padding-bottom: 50px;/*底部栏50px*/
         overflow-x: hidden;
     }
 

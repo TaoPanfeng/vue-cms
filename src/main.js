@@ -11,6 +11,9 @@ import 'mint-ui/lib/style.css'
 /*MUI*/
 import './lib/mui/css/mui.min.css'
 import './lib/mui/css/icons-extra.css'
+/*axios*/
+import axios from 'axios'
+Vue.prototype.$http = axios;
 /*App.vue*/
 import app from './App.vue'
 

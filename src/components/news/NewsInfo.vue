@@ -1,21 +1,25 @@
 <template>
     <div class="news_info_container">
+        <!--主标题-->
         <h3 class="title">{{news.title}}</h3>
-
+        <!--副标题-->
         <p class="subtitle">
             <span>发表时间:{{news.add_time|dateFormat}}</span>
             <span>点击:{{news.click}}次</span>
         </p>
 
         <hr/>
-
+        <!--内容-->
         <div class="content" v-html="news.content"></div>
-
+        <!--评论子组件-->
+        <comment_component :id="id"></comment_component>
     </div>
 </template>
 
 <script>
     import {Toast} from "mint-ui";
+    /*导入评论子组件*/
+    import comment from '../subcomponents/Comment.vue'
 
     export default {
         data()
@@ -37,9 +41,12 @@
                     this.news = result.data.message[0];
                 }).catch(() =>
                 {
-                    Toast("获取数据失败...");
+                    Toast("获取新闻详情数据失败...");
                 });
             }
+        },
+        components: {/*用来注册子组件*/
+            "comment_component": comment
         }
     }
 </script>
@@ -68,7 +75,7 @@
 
         .content img
         {
-            width: 100%;/*设置图片宽度100%,如果不生效,去除 style 的 scoped 属性*/
+            width: 100%; /*设置图片宽度100%,如果不生效,去除 style 的 scoped 属性*/
         }
     }
 </style>

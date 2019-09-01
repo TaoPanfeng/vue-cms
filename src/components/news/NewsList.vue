@@ -2,7 +2,7 @@
     <div>
         <ul class="mui-table-view">
             <li class="mui-table-view-cell mui-media" v-for="(news,index) in news_list" :key="index">
-                <a href="#">
+                <router-link :to="'/home/newsinfo/'+news.id">
                     <img class="mui-media-object mui-pull-left"
                          :src="news.img_url">
                     <div class="mui-media-body">
@@ -13,7 +13,7 @@
                             <span>点击:{{news.click}}次</span>
                         </p>
                     </div>
-                </a>
+                </router-link>
             </li>
         </ul>
     </div>

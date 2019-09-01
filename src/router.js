@@ -9,11 +9,12 @@ export default new VueRouter({
     //匹配设置路由规则
     routes:
         [
-            {path:"/home",component:HomeContainer},
-            {path:"/member",component:MemberContainer},
-            {path:"/cart",component:CartContainer},
-            {path:"/search",component:SearchContainer},
+            {path: "/", redirect: "/home"},
+            {path: "/home", component: HomeContainer},
+            {path: "/member", component: MemberContainer},
+            {path: "/cart", component: CartContainer},
+            {path: "/search", component: SearchContainer},
         ],
     // 会覆盖叫 router-link-active 默认的类
-    linkActiveClass:'mui-active'
+    linkActiveClass: 'mui-active'
 })

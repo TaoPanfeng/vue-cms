@@ -3,7 +3,9 @@
         <!--顶部-->
         <mt-header fixed title="固定在顶部"></mt-header>
         <!--中间 路由 router-view-->
-        <router-view></router-view>
+        <transition>
+            <router-view></router-view>
+        </transition>
 
         <!--底部-->
         <nav class="mui-bar mui-bar-tab">
@@ -35,6 +37,23 @@
 <style lang="scss" scoped>
     .app_container
     {
-        padding-top: 40px; //让固定在顶部与<h1>标签内容不重合
+        padding-top: 40px; /*让固定在顶部与<h1>标签内容不重合*/
+        overflow-x: hidden;
+    }
+
+    .v-enter {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+
+    .v-leave-to {
+        opacity: 0;
+        transform: translateX(-100%);
+        position: absolute;
+    }
+
+    .v-enter-active,
+    .v-leave-active {
+        transition: all 0.5s ease;/*0.5秒*/
     }
 </style>

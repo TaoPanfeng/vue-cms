@@ -62,7 +62,7 @@
                     this.lunbotu_list = result.data.message;
                 }).catch(() =>
                 {
-                    Toast("加载轮播图失败...");
+                    Toast("获取轮播图数据失败...");
                 });
             }
         }

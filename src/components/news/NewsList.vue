@@ -41,7 +41,7 @@
                     this.news_list = result.data.message;
                 }).catch(() =>
                 {
-                    Toast("加载数据失败...");
+                    Toast("获取数据失败...");
                 });
             }
         }

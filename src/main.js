@@ -7,7 +7,6 @@ Vue.use(VueRouter);
 import router from './router.js'
 /*Mint UI*/
 import MintUI from 'mint-ui'
-
 Vue.use(MintUI);
 import 'mint-ui/lib/style.css'
 /*MUI*/

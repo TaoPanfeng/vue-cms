@@ -40,6 +40,9 @@
         padding-top: 40px; /*让固定在顶部与<h1>标签内容不重合*/
         padding-bottom: 50px;/*底部栏50px*/
         overflow-x: hidden;
+        .mint-header{
+            z-index: 99;/*z-index较大的会覆盖较小的*/
+        }
     }
 
     .v-enter {

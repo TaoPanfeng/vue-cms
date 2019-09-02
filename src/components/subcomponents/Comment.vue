@@ -2,9 +2,9 @@
     <div class="comment-container">
         <h3>发表评论</h3>
         <hr/>
-        <textarea placeholder="请输入要评论的内容,最多120字..." maxlength="120"></textarea>
+        <textarea placeholder="请输入要评论的内容,最多120字..." maxlength="120" v-model="comment_info"></textarea>
 
-        <mt-button type="primary" size="large">发表评论</mt-button>
+        <mt-button type="primary" size="large" @click="send_comment">发表评论</mt-button>
 
         <div class="comment-list">
             <div class="comment" v-for="(comment,index) in comment_list" :key="index">
@@ -12,7 +12,7 @@
                     {{index+1}}楼&emsp;用户:{{comment.user_name}}&emsp;发表时间:{{comment.add_time | dateFormat}}
                 </div>
                 <div class="comment-body">
-                    {{comment.content === 'undefined'|| comment.content === '' ?  '此内容什么都无' : comment.content}}
+                    {{comment.content === 'undefined'|| comment.content === '' ? '此内容什么都无' : comment.content}}
                 </div>
             </div>
         </div>
@@ -29,7 +29,8 @@
         {
             return {
                 comment_list: [],
-                page_number: 555,/*默认 第一页*/
+                page_number: 1,/*默认 第一页*/
+                comment_info: ""
             }
         },
         created()
@@ -53,6 +54,26 @@
             {
                 this.page_number++;
                 this.get_comment_list();
+            },
+            send_comment()
+            {
+                if (this.comment_info.trim().length === 0)
+                {
+                    return Toast("评论内容不能为空...");
+                }
+
+                this.$http.post("/api/postcomment/" + this.id, {content: this.comment_info}).then(result =>
+                {
+                    this.comment_list.unshift({
+                       user_name:"匿名用户_tpf",
+                       add_time:Date.now(),
+                       content:this.comment_info.trim()
+                    });
+                    this.comment_info="";
+                }).catch(() =>
+                {
+                    Toast("发表评论失败...");
+                });
             }
         },
         props: ["id"]

@@ -9,10 +9,11 @@
         </p>
 
         <hr/>
+
         <!--内容-->
         <div class="content" v-html="news.content"></div>
         <!--评论子组件-->
-        <comment_component :id="id"></comment_component>
+        <comment_component :id="news_id"></comment_component>
     </div>
 </template>
 
@@ -25,7 +26,7 @@
         data()
         {
             return {
-                id: this.$route.params.id,//接收到url中的id值
+                news_id: this.$route.params.news_id,//接收到url中的id值
                 news: {}
             }
         },
@@ -36,7 +37,7 @@
         methods: {
             get_news_info()// 获取新闻消息
             {
-                this.$http.get("/api/getnew/" + this.id).then(result =>
+                this.$http.get("/api/getnew/" + this.news_id).then(result =>
                 {
                     this.news = result.data.message[0];
                 }).catch(() =>

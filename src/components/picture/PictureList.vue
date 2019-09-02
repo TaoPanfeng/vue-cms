@@ -17,13 +17,14 @@
 
         <!--图片列表-->
         <ul class="picture-list">
-            <li v-for="(picture,index) in picture_list" :key="index">
+            <router-link :to="'/home/pictureinfo/'+picture.id" tag="li"
+                         v-for="(picture,index) in picture_list" :key="index">
                 <img v-lazy="picture.img_url">
                 <div class="info">
-                    <h1 class="info_title">{{picture.seo_title}}</h1>
-                    <div class="info_content">{{picture.content}}</div>
+                    <h1 class="info_title">{{picture.title}}</h1>
+                    <div class="info_content">{{picture.zhaiyao}}</div>
                 </div>
-            </li>
+            </router-link>
         </ul>
     </div>
 </template>
@@ -43,6 +44,9 @@
         created()
         {
             this.get_all_category();
+
+            // 默认进入页面，就主动请求 所有图片列表的数据
+            this.get_picture_list_by_category_id(0);
         },
         methods: {
             get_all_category()

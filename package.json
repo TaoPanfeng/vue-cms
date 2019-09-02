@@ -30,6 +30,7 @@
     "sass-loader": "^7.3.1",
     "style-loader": "^1.0.0",
     "url-loader": "^2.1.0",
+    "v-viewer": "^1.4.2",
     "vue": "^2.6.10",
     "vue-loader": "^15.7.1",
     "vue-router": "^3.1.2",

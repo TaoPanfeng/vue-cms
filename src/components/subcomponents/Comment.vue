@@ -1,17 +1,17 @@
 <template>
-    <div class="comment-container">
+    <div class="comment_container">
         <h3>发表评论</h3>
         <hr/>
         <textarea placeholder="请输入要评论的内容,最多120字..." maxlength="120" v-model="comment_info"></textarea>
 
         <mt-button type="primary" size="large" @click="send_comment">发表评论</mt-button>
 
-        <div class="comment-list">
+        <div class="comment_list">
             <div class="comment" v-for="(comment,index) in comment_list" :key="index">
-                <div class="comment-title">
+                <div class="comment_title">
                     {{index+1}}楼&emsp;用户:{{comment.user_name}}&emsp;发表时间:{{comment.add_time | dateFormat}}
                 </div>
-                <div class="comment-body">
+                <div class="comment_body">
                     {{comment.content === 'undefined'|| comment.content === '' ? '此内容什么都无' : comment.content}}
                 </div>
             </div>
@@ -65,7 +65,7 @@
                 this.$http.post("/api/postcomment/" + this.id, {content: this.comment_info}).then(result =>
                 {
                     this.comment_list.unshift({
-                       user_name:"匿名用户_tpf",
+                       user_name:"匿名用户",
                        add_time:Date.now(),
                        content:this.comment_info.trim()
                     });
@@ -81,7 +81,7 @@
 </script>
 
 <style lang="scss" scoped>
-    .comment-container
+    .comment_container
     {
         h3
         {
@@ -95,20 +95,20 @@
             margin: 0;
         }
 
-        .comment-list
+        .comment_list
         {
             margin: 5px 0; /*外边距 上下5px 左右0px*/
             .comment
             {
                 font-size: 12px;
 
-                .comment-title
+                .comment_title
                 {
                     line-height: 30px; /*行高:30px*/
                     background-color: #cccccc;
                 }
 
-                .comment-body
+                .comment_body
                 {
                     line-height: 35px;
                     text-indent: 2em; /*文本缩进 2em*/

@@ -7,6 +7,7 @@ import SearchContainer from './components/tabbar/SearchContainer.vue'
 import NewsList from './components/news/NewsList.vue'
 import NewsInfo from './components/news/NewsInfo.vue'
 import PictureList from './components/picture/PictureList.vue'
+import PictureInfo from './components/picture/PictureInfo.vue'
 
 export default new VueRouter({
     //匹配设置路由规则
@@ -18,8 +19,9 @@ export default new VueRouter({
             {path: "/cart", component: CartContainer},
             {path: "/search", component: SearchContainer},
             {path: "/home/newslist", component: NewsList},
-            {path: "/home/newsinfo/:id", component: NewsInfo},
+            {path: "/home/newsinfo/:news_id", component: NewsInfo},
             {path: "/home/picturelist", component: PictureList},
+            {path: "/home/pictureinfo/:picture_id", component: PictureInfo},
         ],
     // 会覆盖叫 router-link-active 默认的类
     linkActiveClass: 'mui-active'

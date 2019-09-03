@@ -26,7 +26,7 @@
         data()
         {
             return {
-                news_list: []
+                news_list: []/*新闻集合*/
             }
         },
         created()
@@ -41,7 +41,7 @@
                     this.news_list = result.data.message;
                 }).catch(() =>
                 {
-                    Toast("获取数据失败...");
+                    Toast("获取新闻数据失败...");
                 });
             }
         }

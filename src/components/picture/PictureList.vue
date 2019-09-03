@@ -37,8 +37,8 @@
         data()
         {
             return {
-                category_list: [],
-                picture_list: []
+                category_list: [],/*顶部导航条分类集合*/
+                picture_list: []/*图片集合*/
             }
         },
         created()

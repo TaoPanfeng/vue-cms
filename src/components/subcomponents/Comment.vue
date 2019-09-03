@@ -35,10 +35,10 @@
         },
         created()
         {
-            this.get_comment_list();
+            this.get_comment_list_by_page_number();
         },
         methods: {
-            get_comment_list()
+            get_comment_list_by_page_number()
             {
                 // console.log(this.id);//打印接收到父组件的值
                 this.$http.get("/api/getcomments/" + this.id + "?pageindex=" + this.page_number).then(result =>
@@ -53,7 +53,7 @@
             get_more_comment()
             {
                 this.page_number++;
-                this.get_comment_list();
+                this.get_comment_list_by_page_number();
             },
             send_comment()
             {
@@ -65,11 +65,11 @@
                 this.$http.post("/api/postcomment/" + this.id, {content: this.comment_info}).then(result =>
                 {
                     this.comment_list.unshift({
-                       user_name:"匿名用户",
-                       add_time:Date.now(),
-                       content:this.comment_info.trim()
+                        user_name: "匿名用户",
+                        add_time: Date.now(),
+                        content: this.comment_info.trim()
                     });
-                    this.comment_info="";
+                    this.comment_info = "";
                 }).catch(() =>
                 {
                     Toast("发表评论失败...");

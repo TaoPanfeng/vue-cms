@@ -1,7 +1,7 @@
 <template>
     <div class="home_container">
         <!--轮播图-->
-        <swipe_component :lunbotu_list="lunbotu_list"></swipe_component>
+        <swipe_component :lunbotu_list="lunbotu_list" :is_full="true"></swipe_component>
 
         <!--六宫格-->
         <ul class="mui-table-view mui-grid-view mui-grid-9">

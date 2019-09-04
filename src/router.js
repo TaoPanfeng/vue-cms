@@ -9,6 +9,7 @@ import NewsInfo from './components/news/NewsInfo.vue'
 import PictureList from './components/picture/PictureList.vue'
 import PictureInfo from './components/picture/PictureInfo.vue'
 import GoodsList from './components/goods/GoodsList.vue'
+import GoodsInfo from './components/goods/GoodsInfo.vue'
 
 export default new VueRouter({
     //匹配设置路由规则
@@ -24,6 +25,7 @@ export default new VueRouter({
             {path: "/home/picturelist", component: PictureList},
             {path: "/home/pictureinfo/:picture_id", component: PictureInfo},
             {path: "/home/goodslist", component: GoodsList},
+            {path: "/home/goodsinfo/:goods_id", component: GoodsInfo},
         ],
     // 会覆盖叫 router-link-active 默认的类
     linkActiveClass: 'mui-active'

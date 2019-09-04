@@ -1,17 +1,17 @@
 <template>
     <div class="news_info_container">
         <!--主标题-->
-        <h3 class="title">{{news.title}}</h3>
+        <h3 class="title">{{news_info.title}}</h3>
         <!--副标题-->
         <p class="subtitle">
-            <span>发表时间:{{news.add_time|dateFormat}}</span>
-            <span>点击:{{news.click}}次</span>
+            <span>发表时间:{{news_info.add_time|dateFormat}}</span>
+            <span>点击:{{news_info.click}}次</span>
         </p>
 
         <hr/>
 
         <!--内容-->
-        <div class="content" v-html="news.content"></div>
+        <div class="content" v-html="news_info.content"></div>
         <!--评论子组件-->
         <comment_component :id="news_id"></comment_component>
     </div>
@@ -26,8 +26,8 @@
         data()
         {
             return {
-                news_id: this.$route.params.news_id,//接收到url中的id值
-                news: {}
+                news_id: this.$route.params.news_id,/*接收到url中的id值*/
+                news_info: {}/*新闻对象*/
             }
         },
         created()
@@ -39,7 +39,7 @@
             {
                 this.$http.get("/api/getnew/" + this.news_id).then(result =>
                 {
-                    this.news = result.data.message[0];
+                    this.news_info = result.data.message[0];
                 }).catch(() =>
                 {
                     Toast("获取新闻详情数据失败...");
@@ -61,8 +61,6 @@
         {
             font-size: 16px;
             text-align: center; /*居中对齐*/
-            /*margin: 0 15px;*/
-            /*margin: 5px 15px 5px 5px;*/
             color: red;
         }
 

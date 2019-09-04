@@ -35,8 +35,8 @@
         {
             return {
                 picture_id: this.$route.params.picture_id,//接收到url中的id值
-                picture_info: {},
-                thumbnail_list: []
+                picture_info: {},/*图片信息*/
+                thumbnail_list: []/*缩略图集合*/
             }
         },
         created()

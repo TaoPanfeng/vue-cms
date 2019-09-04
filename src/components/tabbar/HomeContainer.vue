@@ -1,11 +1,8 @@
 <template>
-    <div>
+    <div class="home_container">
         <!--轮播图-->
-        <mt-swipe :auto="1000">
-            <mt-swipe-item v-for="(lunbotu,index) in lunbotu_list" :key="index">
-                <img :src="lunbotu.img">
-            </mt-swipe-item>
-        </mt-swipe>
+        <swipe_component :lunbotu_list="lunbotu_list"></swipe_component>
+
         <!--六宫格-->
         <ul class="mui-table-view mui-grid-view mui-grid-9">
             <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
@@ -51,20 +48,21 @@
 
 <script>
     import {Toast} from "mint-ui";
+    import swipe from '../subcomponents/Swipe.vue'
 
     export default {
         data()
         {
             return {
-                lunbotu_list: []// 保存轮播图的数组
+                lunbotu_list: []/*轮播图集合*/
             }
         },
         created()
         {
-            this.get_lunbotu_data();
+            this.get_lunbotu_list();
         },
         methods: {
-            get_lunbotu_data()// 获取轮播图数据的方法
+            get_lunbotu_list()// 获取轮播图数据的方法
             {
                 this.$http.get("/api/getlunbo").then(result =>
                 {
@@ -75,37 +73,33 @@
                     Toast("获取轮播图数据失败...");
                 });
             }
+        },
+        components: {
+            "swipe_component": swipe
         }
     }
 </script>
 
 <!--lang设置为scss样式,scoped设置自己组件可用-->
 <style lang="scss" scoped>
-    .mint-swipe /*设置轮播图*/
+    .home_container
     {
-        height: 200px; /*高度:200,不然不显示,默认为0了*/
-        .mint-swipe-item img
+        .mui-grid-view.mui-grid-9
         {
-            width: 100%;
-            height: 100%;
-        }
-    }
-
-    .mui-grid-view.mui-grid-9
-    {
-        background-color: white; /*设置六宫格,背景颜色:白色*/
-        .mui-table-view-cell
-        {
-            border: none; /*设置六宫格,无边框*/
-            img
+            background-color: white; /*设置六宫格,背景颜色:白色*/
+            .mui-table-view-cell
             {
-                width: 60px;
-                height: 60px;
-            }
+                border: none; /*设置六宫格,无边框*/
+                img
+                {
+                    width: 60px;
+                    height: 60px;
+                }
 
-            div
-            {
-                font-size: 12px;
+                div
+                {
+                    font-size: 12px;
+                }
             }
         }
     }

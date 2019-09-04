@@ -7,7 +7,7 @@
             <div class="info">
                 <p class="price">
                     <span class="now_price">￥{{goods.sell_price}}</span>
-                    <span class="old_price">￥{{goods.market_price}}</span>
+                    <del class="old_price">￥{{goods.market_price}}</del>
                 </p>
                 <p class="sell">
                     <span>热卖中</span>
@@ -107,17 +107,17 @@
 
                     .old_price
                     {
-                        text-decoration: line-through; /*定义穿过文本下的一条线。*/
+                        /*text-decoration: line-through; !*定义穿过文本下的一条线。可以使用del标签替代*!*/
                         font-size: 12px;
-                        margin-left: 10px;
+                        margin-left: 10px;/*左外边距*/
                     }
                 }
 
                 .sell
                 {
-                    /*display: flex;*/
-                    /*justify-content: space-between;*/
-                    /*font-size: 13px;*/
+                    display: flex; /*启动弹性布局*/
+                    justify-content: space-between; /* 均匀排列每个元素,首个元素放置于起点，末尾元素放置于终点 */
+                    font-size: 12px;
                 }
             }
         }

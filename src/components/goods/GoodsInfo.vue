@@ -31,7 +31,8 @@
                         </p>
                     </div>
                     <p>购买数量:
-                        <number_component @send_number="receive_number"></number_component>
+                        <number_component @send_number="receive_number"
+                                          :max_number="goods_info.stock_quantity"></number_component>
                     </p>
                     <p>
                         <mt-button type="primary" size="small">立即购买</mt-button>
@@ -149,7 +150,7 @@
             },
             receive_number(data)
             {
-                this.select_count=data;
+                this.select_count = data;
             }
         },
         components: {

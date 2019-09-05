@@ -31,7 +31,7 @@
                         </p>
                     </div>
                     <p>购买数量:
-                        <number_component></number_component>
+                        <number_component @send_number="receive_number"></number_component>
                     </p>
                     <p>
                         <mt-button type="primary" size="small">立即购买</mt-button>
@@ -73,6 +73,7 @@
                 lunbotu_list: [],/*轮播图集合*/
                 goods_info: {},/*商品对象*/
                 show_ball: false,/*是否显示小球*/
+                select_count: 1/*选择的数量,默认为1*/
             }
         },
         created()
@@ -135,7 +136,7 @@
                 const x_offset = end_position.x - start_position.x;/*x偏移量*/
                 const y_offset = end_position.y - start_position.y;/*y偏移量*/
 
-                el.style.transform = "translate("+x_offset+"px,"+y_offset+"px)";
+                el.style.transform = "translate(" + x_offset + "px," + y_offset + "px)";
 
                 // 动画效果: 把 ease 替换成 cubic-bezier(.4,-0.3,1,.68)
                 el.style.transition = "all 0.5s cubic-bezier(.4,-0.3,1,.68)";
@@ -146,6 +147,10 @@
             {
                 this.show_ball = !this.show_ball;/*取非*/
             },
+            receive_number(data)
+            {
+                this.select_count=data;
+            }
         },
         components: {
             "swipe_component": Swipe,

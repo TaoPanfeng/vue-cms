@@ -6,7 +6,7 @@
                 @before-enter="beforeEnter"
                 @enter="enter"
                 @after-enter="afterEnter">
-            <div class="ball" v-show="show_ball" ref="ball"></div>
+            <div class="ball" v-show="show_ball" ref="start_position"></div>
         </transition>
 
         <!--轮播-->
@@ -126,10 +126,20 @@
             enter(el, done)
             {
                 el.offsetWidth;
-                // (top,left) :原始位置(411,146) 偏移位置(700,240) 偏移量(x,y)(94,289)
-                el.style.transform = "translate(94px,289px)";
+
+                /*在动画中 小球 div 属性定义 ref="start_position"*/
+                const start_position = this.$refs.start_position.getBoundingClientRect();
+                /*在购物车数量小红点定义 id="end_position"*/
+                const end_position = document.getElementById("end_position").getBoundingClientRect();
+
+                const x_offset = end_position.x - start_position.x;/*x偏移量*/
+                const y_offset = end_position.y - start_position.y;/*y偏移量*/
+
+                el.style.transform = "translate("+x_offset+"px,"+y_offset+"px)";
+
                 // 动画效果: 把 ease 替换成 cubic-bezier(.4,-0.3,1,.68)
-                el.style.transition = "all 0.3s cubic-bezier(.4,-0.3,1,.68)";
+                el.style.transition = "all 0.5s cubic-bezier(.4,-0.3,1,.68)";
+
                 done();
             },
             afterEnter(el)

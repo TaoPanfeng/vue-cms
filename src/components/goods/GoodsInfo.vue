@@ -1,5 +1,14 @@
 <template>
     <div class="goods_info_container">
+
+        <!--小球动画-->
+        <transition
+                @before-enter="beforeEnter"
+                @enter="enter"
+                @after-enter="afterEnter">
+            <div class="ball" v-show="show_ball" ref="ball"></div>
+        </transition>
+
         <!--轮播-->
         <div class="mui-card">
             <div class="mui-card-content">
@@ -26,7 +35,7 @@
                     </p>
                     <p>
                         <mt-button type="primary" size="small">立即购买</mt-button>
-                        <mt-button type="danger" size="small">加入购物车</mt-button>
+                        <mt-button type="danger" size="small" @click="add_cart">加入购物车</mt-button>
                     </p>
                 </div>
             </div>
@@ -63,6 +72,7 @@
                 goods_id: this.$route.params.goods_id,/*接收到url中的值*/
                 lunbotu_list: [],/*轮播图集合*/
                 goods_info: {},/*商品对象*/
+                show_ball: false,/*是否显示小球*/
             }
         },
         created()
@@ -104,7 +114,28 @@
             go_goods_comment(goods_id)
             {
                 this.$router.push({name: "goodscomment", params: {goods_id}});
-            }
+            },
+            add_cart()
+            {
+                this.show_ball = !this.show_ball;/*取非*/
+            },
+            beforeEnter(el)
+            {
+                el.style.transform = "translate(0, 0)";/*(0,0)就是我们样式中定义的位置*/
+            },
+            enter(el, done)
+            {
+                el.offsetWidth;
+                // (top,left) :原始位置(411,146) 偏移位置(700,240) 偏移量(x,y)(94,289)
+                el.style.transform = "translate(94px,289px)";
+                // 动画效果: 把 ease 替换成 cubic-bezier(.4,-0.3,1,.68)
+                el.style.transition = "all 0.3s cubic-bezier(.4,-0.3,1,.68)";
+                done();
+            },
+            afterEnter(el)
+            {
+                this.show_ball = !this.show_ball;/*取非*/
+            },
         },
         components: {
             "swipe_component": Swipe,
@@ -136,6 +167,18 @@
                 margin: 10px 0; /*外边距:上下10px 左右0*/
             }
 
+        }
+
+        .ball
+        {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%; /*半径*/
+            background-color: red;
+            position: absolute; /*绝对路径*/
+            z-index: 99; /*靠前显示*/
+            top: 411px;
+            left: 146px;
         }
     }
 </style>

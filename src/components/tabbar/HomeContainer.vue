@@ -48,7 +48,7 @@
 
 <script>
     import {Toast} from "mint-ui";
-    import swipe from '../subcomponents/Swipe.vue'
+    import Swipe from '../subcomponents/Swipe.vue'
 
     export default {
         data()
@@ -75,7 +75,7 @@
             }
         },
         components: {
-            "swipe_component": swipe
+            "swipe_component": Swipe
         }
     }
 </script>

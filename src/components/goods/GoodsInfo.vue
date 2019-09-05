@@ -43,8 +43,8 @@
                 </div>
             </div>
             <div class="mui-card-footer">
-                <mt-button type="primary" size="large" plain>图文介绍</mt-button>
-                <mt-button type="danger" size="large" plain>商品评论</mt-button>
+                <mt-button type="primary" size="large" plain @click="go_goods_description(goods_id)">图文介绍</mt-button>
+                <mt-button type="danger" size="large" plain @click="go_goods_comment(goods_id)">商品评论</mt-button>
             </div>
         </div>
 
@@ -53,8 +53,8 @@
 
 <script>
     import {Toast} from "mint-ui";
-    import swipe from '../subcomponents/Swipe.vue'
-    import number from '../subcomponents/Number.vue'
+    import Swipe from '../subcomponents/Swipe.vue'
+    import Number from '../subcomponents/Number.vue'
 
     export default {
         data()
@@ -95,11 +95,20 @@
                 {
                     Toast("获取商品详情数据失败...");
                 });
+            },
+            go_goods_description(goods_id)
+            {
+                /*编程式导航 跳转到 商品介绍*/
+                this.$router.push({name: "goodsdescription", params: {goods_id}});
+            },
+            go_goods_comment(goods_id)
+            {
+                this.$router.push({name: "goodscomment", params: {goods_id}});
             }
         },
         components: {
-            "swipe_component": swipe,
-            "number_component": number
+            "swipe_component": Swipe,
+            "number_component": Number
         }
     }
 </script>
@@ -108,7 +117,7 @@
     .goods_info_container
     {
         background-color: #eee;
-        overflow: hidden;/*移除此div的内容隐藏*/
+        overflow: hidden; /*移除此div的内容隐藏*/
         .price .now_price
         {
             color: red;

@@ -20,7 +20,7 @@
 <script>
     import {Toast} from "mint-ui";
     /*导入评论子组件*/
-    import comment from '../subcomponents/Comment.vue'
+    import Comment from '../subcomponents/Comment.vue'
 
     export default {
         data()
@@ -47,7 +47,7 @@
             }
         },
         components: {/*用来注册子组件*/
-            "comment_component": comment
+            "comment_component": Comment
         }
     }
 </script>

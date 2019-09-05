@@ -1,10 +1,9 @@
 <template>
-    <div class="number_container">
-        <div class="mui-numbox" data-numbox-min='1'>
-            <button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
-            <input class="mui-input-numbox" type="number" value="1"/>
-            <button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
-        </div>
+    <!--外面不能再加 div ,再加的话就不会拼接在,否则换行 -->
+    <div class="mui-numbox" data-numbox-min='1'>
+        <button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
+        <input class="mui-input-numbox" type="number" value="1"/>
+        <button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
     </div>
 </template>
 
@@ -20,7 +19,5 @@
 </script>
 
 <style lang="scss" scoped>
-    .number_container
-    {
-    }
+
 </style>

@@ -28,7 +28,7 @@
 
 <script>
     import {Toast} from "mint-ui";
-    import comment from '../subcomponents/Comment.vue'
+    import Comment from '../subcomponents/Comment.vue'
 
     export default {
         data()
@@ -67,12 +67,12 @@
             }
         },
         components: {
-            "comment_component": comment
+            "comment_component": Comment
         }
     }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
     .picture_info_container
     {
         padding: 3px; /*内边距*/

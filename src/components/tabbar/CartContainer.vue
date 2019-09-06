@@ -1,5 +1,6 @@
 <template>
     <div class="cart_container">
+
         <!--购物车列表-->
         <div class="cart_list">
             <div class="mui-card" v-for="(goods,index) in goods_list" :key="index">
@@ -10,7 +11,7 @@
                         <div class="goods_info">
                             <h1>{{goods.title}}</h1>
                             <p>
-                                <span class="price">¥{{goods.count * goods.price}}</span>
+                                <span class="price">¥{{goods.price}}</span>
                                 <cart_number_component @update_cart="load_cart"
                                                        :goods="goods"></cart_number_component>
                                 <a href="#" @click="delete_cart(index)">删除</a>
@@ -69,7 +70,17 @@
             },
             pay()
             {
-                alert("支付宝到账 " + this.total_price + " 元...");
+                this.goods_list.forEach(goods =>
+                {
+                    this.select_list.forEach(select_one =>
+                    {
+                        if (goods.id === select_one.id)
+                        {
+                            this.goods_list.splice(this.goods_list.findIndex(goods), 1);
+                        }
+                    });
+                });
+                Toast("支付宝到账 " + this.total_price + " 元...");
             }
         },
         computed: {

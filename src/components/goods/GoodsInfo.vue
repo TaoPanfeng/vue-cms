@@ -120,6 +120,38 @@
             add_cart()
             {
                 this.show_ball = !this.show_ball;/*取非*/
+
+                // 1,查询本地购物车,有数据则返回,没有返回空数组[]
+                let goods_list = JSON.parse(localStorage.getItem("VUE_CMS_CART")) || [];
+
+                // 2,判断 localStorage 中是否存在当前商品的 goods_no,如果存在 goods 就为那个对象,不存在就为undefined
+                let goods = goods_list.find(g => g.id === this.goods_info.id);
+
+                // 3,判断对象是否存在,存在就在 localStorage 中修改数量,不存在就新增
+                if (goods)
+                {
+                    /*查找到这个 goods 在 goods_list 中的下标*/
+                    let index = goods_list.findIndex(g => g.id === this.goods_info.id);
+                    goods_list[index].count += parseInt(this.select_count);
+                } else
+                {
+                    goods_list.push({
+                        id: this.goods_info.id,/*编号*/
+                        title: this.goods_info.title,/*标题*/
+                        img: this.lunbotu_list[0].src,/*图片*/
+                        price: parseInt(this.goods_info.sell_price),/*单价*/
+                        count: parseInt(this.select_count),/*数量*/
+                        max_number: parseInt(this.goods_info.stock_quantity)/*库存*/
+                    });
+                }
+                // 4,更新 localStorage 中的数据,如果 当前商品的数量不能超过库存数量
+                let goods_index = goods_list.findIndex(g => g.id === this.goods_info.id);
+                if (goods_list[goods_index].count > this.goods_info.stock_quantity)
+                {
+                    goods_list[goods_index].count = this.goods_info.stock_quantity;
+                }
+
+                localStorage.setItem("VUE_CMS_CART", JSON.stringify(goods_list));
             },
             beforeEnter(el)
             {

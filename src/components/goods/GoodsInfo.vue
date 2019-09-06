@@ -141,7 +141,8 @@
                         img: this.lunbotu_list[0].src,/*图片*/
                         price: parseInt(this.goods_info.sell_price),/*单价*/
                         count: parseInt(this.select_count),/*数量*/
-                        max_number: parseInt(this.goods_info.stock_quantity)/*库存*/
+                        max_number: parseInt(this.goods_info.stock_quantity),/*库存*/
+                        selected: false/*是否选中*/
                     });
                 }
                 // 4,更新 localStorage 中的数据,如果 当前商品的数量不能超过库存数量

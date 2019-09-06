@@ -6,12 +6,12 @@
             <div class="mui-card" v-for="(goods,index) in goods_list" :key="index">
                 <div class="mui-card-content">
                     <div class="mui-card-content-inner">
-                        <input type="checkbox" v-model="select_list" :value="goods"/>
+                        <mt-switch v-model="goods_list[index].selected" @change="select_change"></mt-switch>
                         <img :src="goods.img">
                         <div class="goods_info">
                             <h1>{{goods.title}}</h1>
                             <p>
-                                <span class="price">¥{{goods.price}}</span>
+                                <span class="price">¥{{goods.count * goods.price}}</span>
                                 <cart_number_component @update_cart="load_cart"
                                                        :goods="goods"></cart_number_component>
                                 <a href="#" @click="delete_cart(index)">删除</a>
@@ -35,7 +35,6 @@
             </div>
         </div>
 
-        <h3>CartContainer</h3>
     </div>
 </template>
 
@@ -47,8 +46,7 @@
         data()
         {
             return {
-                goods_list: [],
-                select_list: []
+                goods_list: []
             }
         },
         created()
@@ -56,6 +54,7 @@
             this.load_cart();
         },
         methods: {
+
             load_cart()
             {
                 this.goods_list = JSON.parse(localStorage.getItem("VUE_CMS_CART")) || [];
@@ -70,35 +69,47 @@
             },
             pay()
             {
-                this.goods_list.forEach(goods =>
+                if (this.total_count === 0)
                 {
-                    this.select_list.forEach(select_one =>
+                    Toast("请选择要结算的商品...")
+                } else
+                {
+                    Toast("支付宝到账 " + this.total_price + " 元...");
+                    this.goods_list = JSON.parse(localStorage.getItem("VUE_CMS_CART")).filter(g =>
                     {
-                        if (goods.id === select_one.id)
-                        {
-                            this.goods_list.splice(this.goods_list.findIndex(goods), 1);
-                        }
+                        return g.selected === false;
                     });
-                });
-                Toast("支付宝到账 " + this.total_price + " 元...");
+                }
+
+            },
+            select_change()
+            {
+                localStorage.setItem("VUE_CMS_CART", JSON.stringify(this.goods_list));
+                this.load_cart();
             }
         },
         computed: {
             total_count()
             {
                 let count = 0;
-                this.select_list.forEach(select_one =>
+                this.goods_list.forEach(goods =>
                 {
-                    count += parseInt(select_one.count);
+                    if (goods.selected === true)
+                    {
+                        count += parseInt(goods.count);
+                    }
                 });
                 return count;
             },
             total_price()
             {
                 let price = 0;
-                this.select_list.forEach(select_one =>
+                this.goods_list.forEach(goods =>
                 {
-                    price += parseInt(select_one.count * select_one.price);
+                    if (goods.selected === true)
+                    {
+                        price += parseInt(goods.count * goods.price);
+                    }
                 });
                 return price;
             }
@@ -121,41 +132,9 @@
             {
                 display: flex;
                 align-items: center; /*位于垂直方向中心*/
-
-                input[type=checkbox]
-                {
-                    position: relative;
-                    width: 15px;
-                    height: 13px;
-                    margin-right: 5px;
-                }
-
-                input[type=checkbox]::before
-                {
-                    content: '';
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    width: 15px;
-                    height: 15px;
-                    line-height: 15px;
-                    text-align: center;
-                    color: white;
-                    font-size: 15px;
-                    background-color: #eee;
-                    border-radius: 4px;
-                }
-
-                input[type=checkbox]:checked::before
-                {
-                    color: white;
-                    background-color: #26D09F;
-                    content: '√';
-                }
-
                 img
                 {
-                    width: 60px;
+                    width: 30px;
                 }
 
                 .goods_info
@@ -166,7 +145,7 @@
 
                     h1
                     {
-                        font-size: 14px;
+                        font-size: 10px;
                     }
 
                     p .price

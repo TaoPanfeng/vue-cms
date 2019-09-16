@@ -34,8 +34,62 @@ import Viewer from 'v-viewer'
 Vue.use(Viewer);
 import 'viewerjs/dist/viewer.css'
 
+/*vuex 多个组件传值*/
+import Vuex from 'vuex'
+
+Vue.use(Vuex);
+const cart = JSON.parse(localStorage.getItem("VUE_CMS_CART")) || [];
+let store = new Vuex.Store({
+    state: {
+        goods_list: cart
+    },
+    mutations: {
+        update_store(state, goods_list)
+        {
+            state.goods_list = goods_list;
+            localStorage.setItem("VUE_CMS_CART", JSON.stringify(goods_list));
+        }
+    },
+    getters: {
+        get_cart_all_count(state)
+        {
+            let count = 0;
+            state.goods_list.forEach(goods =>
+            {
+                count += parseInt(goods.count);
+            });
+            return count;
+        },
+        get_total_count(state)
+        {
+            let count = 0;
+            state.goods_list.forEach(goods =>
+            {
+                if (goods.selected === true)
+                {
+                    count += parseInt(goods.count);
+                }
+            });
+            return count;
+        },
+        get_total_price(state)
+        {
+            let price = 0;
+            state.goods_list.forEach(goods =>
+            {
+                if (goods.selected === true)
+                {
+                    price += parseInt(goods.count * goods.price);
+                }
+            });
+            return price;
+        }
+    }
+});
+
 new Vue({
     el: "#app",
     render: c => c(App),
-    router
+    router,
+    store
 });

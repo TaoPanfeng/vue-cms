@@ -11,7 +11,7 @@
                         <div class="goods_info">
                             <h1>{{goods.title}}</h1>
                             <p>
-                                <span class="price">¥{{goods.count * goods.price}}</span>
+                                <span class="price">¥{{goods.price}}</span>
                                 <cart_number_component @update_cart="load_cart"
                                                        :goods="goods"></cart_number_component>
                                 <a href="#" @click="delete_cart(index)">删除</a>
@@ -28,9 +28,9 @@
                 <div class="mui-card-content-inner pay">
                     <div class="left">
                         <span>合计:</span>
-                        <span class="total_price">¥{{total_price}}</span>
+                        <span class="total_price">¥{{$store.getters.get_total_price}}</span>
                     </div>
-                    <mt-button type="danger" @click="pay">结算({{total_count}})</mt-button>
+                    <mt-button type="danger" @click="pay">结算({{$store.getters.get_total_count}})</mt-button>
                 </div>
             </div>
         </div>
@@ -57,61 +57,34 @@
 
             load_cart()
             {
-                this.goods_list = JSON.parse(localStorage.getItem("VUE_CMS_CART")) || [];
+                this.goods_list = this.$store.state.goods_list;
                 if (this.goods_list.length === 0)
                     Toast("购物车暂无商品...");
             },
             delete_cart(index)
             {
                 this.goods_list.splice(index, 1);
-                localStorage.setItem("VUE_CMS_CART", JSON.stringify(this.goods_list));
-                this.load_cart();
+                this.$store.commit('update_store', this.goods_list);
             },
             pay()
             {
-                if (this.total_count === 0)
+                if (this.$store.getters.get_total_count === 0)
                 {
                     Toast("请选择要结算的商品...")
                 } else
                 {
-                    Toast("支付宝到账 " + this.total_price + " 元...");
+                    Toast("支付宝到账 " + this.$store.getters.get_total_price + " 元...");
                     this.goods_list = JSON.parse(localStorage.getItem("VUE_CMS_CART")).filter(g =>
                     {
                         return g.selected === false;
                     });
+                    this.$store.commit('update_store', this.goods_list);
                 }
 
             },
             select_change()
             {
-                localStorage.setItem("VUE_CMS_CART", JSON.stringify(this.goods_list));
-                this.load_cart();
-            }
-        },
-        computed: {
-            total_count()
-            {
-                let count = 0;
-                this.goods_list.forEach(goods =>
-                {
-                    if (goods.selected === true)
-                    {
-                        count += parseInt(goods.count);
-                    }
-                });
-                return count;
-            },
-            total_price()
-            {
-                let price = 0;
-                this.goods_list.forEach(goods =>
-                {
-                    if (goods.selected === true)
-                    {
-                        price += parseInt(goods.count * goods.price);
-                    }
-                });
-                return price;
+                this.$store.commit('update_store', this.goods_list);
             }
         },
         components: {

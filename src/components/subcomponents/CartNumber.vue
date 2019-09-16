@@ -21,14 +21,12 @@
             number_change()
             {
                 /*更新购物车,如果大小超过 max_number 就等于 max_number*/
-                let goods_list = JSON.parse(localStorage.getItem("VUE_CMS_CART"));
+                let goods_list = this.$store.state.goods_list;
                 let index = goods_list.findIndex(g => g.id === this.goods.id);
                 let num = this.$refs.number.value;
                 let max = this.goods.max_number;
-                goods_list[index].count = num > max ? max : num;
-                localStorage.setItem("VUE_CMS_CART", JSON.stringify(goods_list));
-                /*通知购物车更新数据*/
-                this.$emit("update_cart");
+                goods_list[index].count = num > max ? max : num > 0 ? num : 1;
+                this.$store.commit('update_store', goods_list);
             }
         },
         props: ["goods"]
